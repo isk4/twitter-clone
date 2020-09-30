@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 
 # devise
 gem 'devise'
+# Font Awesome
+gem 'font-awesome-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

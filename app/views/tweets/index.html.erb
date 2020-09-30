@@ -22,6 +22,7 @@
         <td><%= tweet.content %></td>
         <td><%= tweet.retweets %></td>
         <td><%= tweet.like_count %></td>
+        <td><%= link_to fa_icon("heart"), tweet_likes_path(tweet), method: "post" %></td>
         <td><%= link_to 'Show', tweet %></td>
         <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>

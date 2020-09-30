@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :likes
-  resources :tweets
+  resources :tweets do
+    resources :likes, only: [:create, :destroy]
+  end
   devise_for :users
 
   root 'tweets#index'

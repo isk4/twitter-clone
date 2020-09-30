@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
   before_action :set_like, only: [:show, :edit, :update, :destroy]
+  before_action :find_tweet, only: [:create, :destroy]
 
   # GET /likes
   # GET /likes.json
@@ -24,14 +25,16 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    @like = Like.new(like_params)
+    @like = Like.new
+    @like.user_id = current_user.id
+    @like.tweet_id = @tweet.id
 
     respond_to do |format|
       if @like.save
-        format.html { redirect_to @like, notice: 'Like was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Like was successfully created.' }
         format.json { render :show, status: :created, location: @like }
       else
-        format.html { render :new }
+        format.html { redirect_to root_path }
         format.json { render json: @like.errors, status: :unprocessable_entity }
       end
     end
@@ -70,5 +73,9 @@ class LikesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def like_params
       params.fetch(:like, {})
+    end
+
+    def find_tweet
+      @tweet = Tweet.find(params[:tweet_id])
     end
 end
