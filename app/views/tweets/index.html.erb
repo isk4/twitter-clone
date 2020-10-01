@@ -1,41 +1,8 @@
 <%= render 'tweets/forms/new_form', tweet: @tweet if user_signed_in? %>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Profile pic</th>
-      <th>Content</th>
-      <th>Retweets</th>
-      <th>Likes</th>
-      <% if user_signed_in? %>
-        <th></th>
-      <% end %>
-      <th>Created</th>
-      <th colspan="2" ></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.user %></td>
-        <td><img src="<%= tweet.user.profile_pic_url %>" style="width: 50px;" alt="profile pic"></td>
-        <td><%= tweet.content %></td>
-        <td><%= tweet.retweets %></td>
-        <td><%= tweet.like_count %></td>
-        <% if user_signed_in? %>
-          <% if tweet.liked_by?(current_user) %>
-            <td><%= link_to fa_icon("heart"), tweet_like_path(tweet, tweet.get_like_id(current_user)), method: "delete" %></td>
-          <% else %>
-            <td><%= link_to fa_icon("heart-o"), tweet_likes_path(tweet), method: "post" %></td>
-          <% end %>
-        <% end %>
-        <td><%= link_to "#{time_ago_in_words(tweet.created_at)} ago", tweet %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @tweets.each do |tweet| %>
+  <%= render 'tweet', resource: tweet %>
+<% end %>
 
 <br>
 

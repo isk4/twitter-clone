@@ -1,0 +1,18 @@
+<div class="card w-100">
+    <div class="d-flex">
+        <img src="<%= resource.user.profile_pic_url %>" style="width: 50px; height: 50px;" class="rounded-circle ml-3 mt-3" alt="profile pic">
+        <div class="card-body">
+            <div class="d-flex align-items-baseline">
+                <h5 class="card-title"><%= resource.user %></h5>
+                <span><%= link_to "#{time_ago_in_words(resource.created_at)} ago", resource, class: "text-muted" %></span>
+            </div>
+            <p class="card-text"><%= resource.content %></p>
+            <%= link_to fa_icon("retweet"), root_path %>
+            <% if user_signed_in? && resource.liked_by?(current_user) %>
+                <td><%= link_to fa_icon("heart"), tweet_like_path(resource, resource.get_like_id(current_user)), method: "delete" %></td>
+            <% else %>
+                <td><%= link_to fa_icon("heart-o"), tweet_likes_path(resource), method: "post" %></td>
+            <% end %>
+        </div>
+    </div>
+</div>
