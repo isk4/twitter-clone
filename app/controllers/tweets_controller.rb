@@ -34,7 +34,7 @@ class TweetsController < ApplicationController
         format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
-        format.html { render :new }
+        format.html { redirect_to tweets_url, alert: 'Tweet must have content.' }
         format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
