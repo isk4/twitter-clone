@@ -1,6 +1,6 @@
 <h1>Tweets</h1>
 
-<%= render 'tweets/forms/new_form', tweet: @tweet %>
+<%= render 'tweets/forms/new_form', tweet: @tweet if user_signed_in? %>
 
 <table>
   <thead>
@@ -11,7 +11,9 @@
       <th>Content</th>
       <th>Retweets</th>
       <th>Likes</th>
-      <th></th>
+      <% if user_signed_in? %>
+        <th></th>
+      <% end %>
       <th>Created</th>
       <th colspan="2" ></th>
     </tr>
@@ -32,12 +34,8 @@
           <% else %>
             <td><%= link_to fa_icon("heart-o"), tweet_likes_path(tweet), method: "post" %></td>
           <% end %>
-          <td><%= link_to "#{time_ago_in_words(tweet.created_at)} ago", tweet %></td>
-          <% if tweet.get_user_id == current_user.id %>
-            <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-            <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
         <% end %>
+        <td><%= link_to "#{time_ago_in_words(tweet.created_at)} ago", tweet %></td>
       </tr>
     <% end %>
   </tbody>

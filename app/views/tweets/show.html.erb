@@ -16,7 +16,7 @@
 <div>
   <strong>Likes:</strong>
   <% unless @tweet.likes.length == 0 %>
-    <div>
+    <div style="display: flex;">
       <% @tweet.likes.each do |like| %>
         <figure>
           <img src="<%= like.user_pic_url %>" alt="profile pic" style="width: 100px;">
@@ -29,5 +29,8 @@
   <% end %>
 </div>
 
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
-<%= link_to 'Back', tweets_path %>
+<% if user_signed_in? && @tweet.get_user_id == current_user.id %>
+  <%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+  <%= link_to 'Delete', @tweet, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
+<%= link_to 'Back', root_path %>

@@ -4,7 +4,7 @@ class Tweet < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   def self.get_tweets(amount, page)
-    self.offset(amount * (page - 1)).limit(amount)
+    self.order(id: :desc).offset(amount * (page - 1)).limit(amount)
   end
 
   def like_count
