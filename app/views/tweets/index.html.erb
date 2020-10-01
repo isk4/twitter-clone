@@ -22,14 +22,18 @@
         <td><%= tweet.content %></td>
         <td><%= tweet.retweets %></td>
         <td><%= tweet.like_count %></td>
-        <% if tweet.liked_by?(current_user) %>
-          <td><%= link_to fa_icon("heart"), tweet_like_path(tweet, tweet.get_like_id(current_user)), method: "delete" %></td>
-        <% else %>
-          <td><%= link_to fa_icon("heart-o"), tweet_likes_path(tweet), method: "post" %></td>
+        <% if user_signed_in? %>
+          <% if tweet.liked_by?(current_user) %>
+            <td><%= link_to fa_icon("heart"), tweet_like_path(tweet, tweet.get_like_id(current_user)), method: "delete" %></td>
+          <% else %>
+            <td><%= link_to fa_icon("heart-o"), tweet_likes_path(tweet), method: "post" %></td>
+          <% end %>
+          <td><%= link_to 'Show', tweet %></td>
+          <% if tweet.get_user_id == current_user.id %>
+            <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
+            <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         <% end %>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

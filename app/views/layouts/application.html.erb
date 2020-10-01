@@ -11,6 +11,15 @@
 
   <body>
     <p id="notice"><%= notice %></p>
-    <%= yield %>
+    <% unless user_signed_in? %>
+      <% if current_page?(new_user_registration_path) %>
+        <%= link_to  "Log in", new_user_session_path %>
+      <% else %>
+        <%= link_to  "Sign up", new_user_registration_path %>
+      <% end %>
+    <% else %>
+      <%= link_to  "Sign out", destroy_user_session_path, method: "delete" %>
+    <% end %>
+      <%= yield %>
   </body>
 </html>
