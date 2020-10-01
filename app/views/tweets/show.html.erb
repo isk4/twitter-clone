@@ -9,6 +9,11 @@
 </p>
 
 <p>
+  <strong>Created:</strong>
+  <%= "#{time_ago_in_words(@tweet.created_at)} ago" %>
+</p>
+
+<p>
   <strong>Retweets:</strong>
   <%= @tweet.retweets %>
 </p>
