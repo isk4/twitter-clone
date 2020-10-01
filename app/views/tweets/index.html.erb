@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Tweet ID</th>
       <th>User</th>
       <th>Profile pic</th>
       <th>Content</th>
@@ -22,7 +21,6 @@
   <tbody>
     <% @tweets.each do |tweet| %>
       <tr>
-        <td><%= tweet.id %></td>
         <td><%= tweet.user %></td>
         <td><img src="<%= tweet.user.profile_pic_url %>" style="width: 50px;" alt="profile pic"></td>
         <td><%= tweet.content %></td>

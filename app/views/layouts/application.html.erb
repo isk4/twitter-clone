@@ -11,17 +11,38 @@
   </head>
 
   <body>
+
     <p id="notice"><%= notice %></p>
     <p id="alert"><%= alert %></p>
 
-    <% if user_signed_in? %>
-      <%= link_to  "Log out", destroy_user_session_path, method: "delete" %>
-    <% else %>
-      <%= link_to  "Log in", new_user_session_path unless current_page?(new_user_session_path) %>
-      <%= link_to  "Sign up", new_user_registration_path unless current_page?(new_user_registration_path) %>
-      <%= link_to "Back to home", root_path if current_page?(new_user_registration_path) || current_page?(new_user_session_path) %>
-    <% end %>
 
-    <%= yield %>
+    <div class="d-flex row">
+
+      <div class="d-flex flex-column col-3">
+        <% if user_signed_in? %>
+          <%= link_to  "Log out", destroy_user_session_path, method: "delete" %>
+        <% else %>
+          <%= link_to  "Log in", new_user_session_path unless current_page?(new_user_session_path) %>
+          <%= link_to  "Sign up", new_user_registration_path unless current_page?(new_user_registration_path) %>
+          <%= link_to "Back to home", root_path if current_page?(new_user_registration_path) || current_page?(new_user_session_path) %>
+        <% end %>
+      </div>
+
+      <div class="col-9">
+
+        <nav class="navbar navbar-light bg-light container">
+          <a class="navbar-brand">Home</a>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          </form>
+        </nav>
+
+        <%= yield %>
+      
+      </div>
+
+    
+    </div>
+
   </body>
 </html>
