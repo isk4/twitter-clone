@@ -20,12 +20,12 @@
       <div class="w-100 col-2 border-right">
         <div class="d-flex flex-column">
           <%= fa_icon "twitter", class: "text-primary fa-4x" %>
+          <%= link_to fa_icon("home") +" Home", root_path, class: "text-dark h4 font-weight-bold" %>
           <% if user_signed_in? %>
             <%= link_to fa_icon("sign-out") + " Log out", destroy_user_session_path, class: "text-dark h4 font-weight-bold", method: "delete" %>
           <% else %>
             <%= link_to fa_icon("sign-in") + " Log in", new_user_session_path, class: "text-dark h4 font-weight-bold" unless current_page?(new_user_session_path) %>
             <%= link_to fa_icon("user-plus") + " Register", new_user_registration_path, class: "text-dark h4 font-weight-bold" unless current_page?(new_user_registration_path) %>
-            <%= link_to fa_icon("home") +" Home", root_path, class: "text-dark h4 font-weight-bold" if current_page?(new_user_registration_path) || current_page?(new_user_session_path) %>
           <% end %>
         </div>
       </div>

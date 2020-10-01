@@ -1,31 +1,11 @@
-<p>
-  <strong>Author:</strong>
-  <%= @tweet.user %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @tweet.content %>
-</p>
-
-<p>
-  <strong>Created:</strong>
-  <%= "#{time_ago_in_words(@tweet.created_at)} ago" %>
-</p>
-
-<p>
-  <strong>Retweets:</strong>
-  <%= @tweet.retweets %>
-</p>
-
+<%= render 'tweet', resource: @tweet %>
 <div>
-  <strong>Likes:</strong>
   <% unless @tweet.likes.length == 0 %>
     <div style="display: flex;">
       <% @tweet.likes.each do |like| %>
-        <figure>
-          <img src="<%= like.user_pic_url %>" alt="profile pic" style="width: 100px;">
-          <figcaption><%= like.user %> liked this tweet.</figcaption>
+        <figure class="text-center mx-3 my-3">
+          <img src="<%= like.user_pic_url %>" style="width: 50px; height: 50px;" class="rounded-circle" alt="profile pic">
+          <figcaption><%= like.user %> liked this tweet</figcaption>
         </figure>
       <% end %>
     </div>
@@ -33,9 +13,3 @@
     <p>This tweet hasn't been liked yet.</p>
   <% end %>
 </div>
-
-<% if user_signed_in? && @tweet.get_user_id == current_user.id %>
-  <%= link_to 'Edit', edit_tweet_path(@tweet) %> |
-  <%= link_to 'Delete', @tweet, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% end %>
-<%= link_to 'Back', root_path %>

@@ -8,12 +8,17 @@
             </div>
             <p class="card-text"><%= resource.content %></p>
             <div class="d-flex justify-content-around">
-                <%= link_to fa_icon("retweet"), root_path, class: "text-muted" %>
-                <% if user_signed_in? && resource.liked_by?(current_user) %>
-                    <td><%= link_to fa_icon("heart"), tweet_like_path(resource, resource.get_like_id(current_user)), method: "delete", class: "text-danger" %></td>
-                <% else %>
-                    <td><%= link_to fa_icon("heart-o"), tweet_likes_path(resource), method: "post", class: "text-muted" %></td>
-                <% end %>
+                <div>
+                    <%= link_to fa_icon("retweet"), root_path, class: "text-muted" %>
+                </div>
+                <div>
+                    <% if user_signed_in? && resource.liked_by?(current_user) %>
+                        <%= link_to fa_icon("heart"), tweet_like_path(resource, resource.get_like_id(current_user)), method: "delete", class: "text-danger" %>
+                    <% else %>
+                        <%= link_to fa_icon("heart-o"), tweet_likes_path(resource), method: "post", class: "text-muted" %>
+                    <% end %>
+                    <span class="text-muted"><%= resource.like_count %></span>
+                </div>
             </div>
         </div>
     </div>
