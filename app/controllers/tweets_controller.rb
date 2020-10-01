@@ -1,10 +1,11 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :set_page, only: [:index]
 
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.get_tweets(50, @page)
   end
 
   # GET /tweets/1
@@ -71,5 +72,9 @@ class TweetsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def tweet_params
       params.require(:tweet).permit(:user_id, :content, :retweets)
+    end
+
+    def set_page
+      @page = params[:page].nil? ? 1 : params[:page].to_i
     end
 end
