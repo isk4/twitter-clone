@@ -11,33 +11,28 @@
   </head>
 
   <body>
-
     <p id="notice"><%= notice %></p>
     <p id="alert"><%= alert %></p>
 
 
-    <div class="d-flex row vh-100">
+    <div class="d-flex">
 
-      <div class="d-flex flex-column h-100 col-3">
-        <% if user_signed_in? %>
-          <%= link_to "Log out", destroy_user_session_path, method: "delete" %>
-        <% else %>
-          <%= link_to "Log in", new_user_session_path unless current_page?(new_user_session_path) %>
-          <%= link_to "Sign up", new_user_registration_path unless current_page?(new_user_registration_path) %>
-          <%= link_to "Back to home", root_path if current_page?(new_user_registration_path) || current_page?(new_user_session_path) %>
-        <% end %>
+      <div class="w-100 col-2 border-right">
+        <div class="d-flex flex-column">
+          <%= fa_icon "twitter", class: "text-primary fa-4x" %>
+          <% if user_signed_in? %>
+            <%= link_to fa_icon("sign-out") + " Log out", destroy_user_session_path, class: "text-dark h4 font-weight-bold", method: "delete" %>
+          <% else %>
+            <%= link_to fa_icon("sign-in") + " Log in", new_user_session_path, class: "text-dark h4 font-weight-bold" unless current_page?(new_user_session_path) %>
+            <%= link_to fa_icon("user-plus") + " Register", new_user_registration_path, class: "text-dark h4 font-weight-bold" unless current_page?(new_user_registration_path) %>
+            <%= link_to fa_icon("home") +" Home", root_path, class: "text-dark h4 font-weight-bold" if current_page?(new_user_registration_path) || current_page?(new_user_session_path) %>
+          <% end %>
+        </div>
       </div>
 
-      <div class="col-9">
+      <div class="col-10 px-0">
 
-        <nav class="container navbar navbar-light bg-light border mr-0">
-          <a class="navbar-brand">Home</a>
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          </form>
-        </nav>
-
-        <div class="container">
+        <div class="overflow-auto">
           <%= yield %>
         </div>
       

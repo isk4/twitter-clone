@@ -1,4 +1,11 @@
-<%= render 'tweets/forms/new_form', tweet: @tweet if user_signed_in? %>
+<nav class="navbar navbar-light bg-light border w-100">
+  <a class="navbar-brand font-weight-bold">Home</a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  </form>
+</nav>
+
+<%= render 'tweets/forms/new_form', tweet: @tweet, class: "form-group" if user_signed_in? %>
 
 <% @tweets.each do |tweet| %>
   <%= render 'tweet', resource: tweet %>
