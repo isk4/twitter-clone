@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
+  before_action :find_tweet, only: [:create, :destroy, :set_like]
   before_action :set_like, only: [:show, :edit, :update, :destroy]
-  before_action :find_tweet, only: [:create, :destroy]
 
   # GET /likes
   # GET /likes.json
@@ -31,7 +31,7 @@ class LikesController < ApplicationController
 
     respond_to do |format|
       if @like.save
-        format.html { redirect_to root_path, notice: 'Like was successfully created.' }
+        format.html { redirect_to root_path, notice: "You've liked this tweet." }
         format.json { render :show, status: :created, location: @like }
       else
         format.html { redirect_to root_path }
@@ -59,7 +59,7 @@ class LikesController < ApplicationController
   def destroy
     @like.destroy
     respond_to do |format|
-      format.html { redirect_to likes_url, notice: 'Like was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: "You've unliked this tweet." }
       format.json { head :no_content }
     end
   end
@@ -67,7 +67,7 @@ class LikesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_like
-      @like = Like.find(params[:id])
+      @like = @tweet.likes.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
