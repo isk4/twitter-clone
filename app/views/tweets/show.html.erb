@@ -1,5 +1,5 @@
 <p>
-  <strong>User:</strong>
+  <strong>Author:</strong>
   <%= @tweet.user %>
 </p>
 
@@ -11,6 +11,11 @@
 <p>
   <strong>Retweets:</strong>
   <%= @tweet.retweets %>
+</p>
+
+<p>
+  <strong>Likes:</strong>
+  <%= @tweet.like_count %>
 </p>
 
 <%= link_to 'Edit', edit_tweet_path(@tweet) %> |
