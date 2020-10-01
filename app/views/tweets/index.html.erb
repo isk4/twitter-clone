@@ -1,5 +1,7 @@
 <h1>Tweets</h1>
 
+<%= render 'tweets/forms/new_form', tweet: @tweet %>
+
 <table>
   <thead>
     <tr>
@@ -46,4 +48,3 @@
   <%= link_to 'Previous page', root_path(page: @page - 1) %>
 <% end %>
 
-<%= link_to 'New Tweet', new_tweet_path %>
