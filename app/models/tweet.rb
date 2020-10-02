@@ -3,7 +3,7 @@ class Tweet < ApplicationRecord
   validates :content, presence: true
   has_many :likes, dependent: :destroy
   belongs_to :tweets, optional: true
-  has_many :tweets, foreign_key: "retweet_from_id"
+  has_many :tweets, foreign_key: "retweet_from_id", dependent: :destroy
 
   def self.get_tweets(amount, page)
     self.order(id: :desc).offset(amount * (page - 1)).limit(amount)
