@@ -34,4 +34,11 @@ class Tweet < ApplicationRecord
   def retweet_count
     Tweet.where(retweet_from_id: self.id).count
   end
+
+  def retweeted_by?(user)
+    Tweet.where(retweet_from_id: self.id).each do |tweet|
+      return true if tweet.user == user
+    end
+    return false
+  end
 end
