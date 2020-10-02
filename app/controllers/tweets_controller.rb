@@ -1,4 +1,5 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_action :set_page, only: [:index]
   before_action :find_reference, only: [:new, :create]
@@ -23,6 +24,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1/edit
   def edit
+    redirect_to tweets_path, notice: "Oops! You're not supposed to do that." unless @tweet.user_id == current_user.id
   end
 
   # POST /tweets

@@ -1,6 +1,7 @@
 class LikesController < ApplicationController
   before_action :find_tweet, only: [:create, :destroy, :set_like]
   before_action :set_like, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /likes
   # GET /likes.json
@@ -25,22 +26,18 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    if user_signed_in?
-      @like = Like.new
-      @like.user_id = current_user.id
-      @like.tweet_id = @tweet.id
-    
-      respond_to do |format|
-        if @like.save
-          format.html { redirect_to root_path, notice: "You've liked this tweet." }
-          format.json { render :show, status: :created, location: @like }
-        else
-          format.html { redirect_to root_path }
-          format.json { render json: @like.errors, status: :unprocessable_entity }
-        end
+    @like = Like.new
+    @like.user_id = current_user.id
+    @like.tweet_id = @tweet.id
+  
+    respond_to do |format|
+      if @like.save
+        format.html { redirect_to root_path, notice: "You've liked this tweet." }
+        format.json { render :show, status: :created, location: @like }
+      else
+        format.html { redirect_to root_path }
+        format.json { render json: @like.errors, status: :unprocessable_entity }
       end
-    else
-      redirect_to new_user_session_path, notice: "You can't like a tweet if you're not logged in."
     end
   end
 
