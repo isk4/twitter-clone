@@ -2,9 +2,20 @@
     <div class="d-flex">
         <img src="<%= resource.user.profile_pic_url %>" style="width: 50px; height: 50px;" class="rounded-circle ml-3 mt-3" alt="profile pic">
         <div class="card-body">
-            <div class="d-flex align-items-baseline">
-                <h5 class="card-title font-weight-bold"><%= resource.user %></h5>
-                <span><%= link_to "#{time_ago_in_words(resource.created_at)} ago", resource, class: "text-muted ml-2" %></span>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex">
+                    <h5 class="card-title font-weight-bold"><%= resource.user %></h5>
+                    <span><%= link_to "#{time_ago_in_words(resource.created_at)} ago", resource, class: "text-muted ml-2" %></span>
+                </div>
+                <% if resource.get_user_id == current_user.id %>
+                    <div>
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <%= link_to fa_icon("pencil") + " Edit tweet", edit_tweet_path(resource), class: "dropdown-item" %>
+                            <%= link_to fa_icon("trash-o") + " Delete tweet", tweet_path(resource), class: "dropdown-item", data: { confirm: "Are you sure?" }, method: :delete %>
+                        </div>
+                    </div>
+                <% end %>
             </div>
             <p class="card-text"><%= resource.content %></p>
 
