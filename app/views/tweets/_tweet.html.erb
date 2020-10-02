@@ -7,9 +7,15 @@
                 <span><%= link_to "#{time_ago_in_words(resource.created_at)} ago", resource, class: "text-muted ml-2" %></span>
             </div>
             <p class="card-text"><%= resource.content %></p>
+
+            <% unless resource.retweet_from_id.nil? %>
+              <%= render 'tweet', resource: resource.retweet_from %>
+            <% end %>
+
             <div class="d-flex justify-content-around">
                 <div>
-                    <%= link_to fa_icon("retweet"), root_path, class: "text-muted" %>
+                    <%= link_to fa_icon("retweet"), new_tweet_path({ reference: resource }), class: "text-muted" %>
+                    <span class="text-muted"><%= resource.retweet_count %></span>
                 </div>
                 <div>
                     <% if user_signed_in? && resource.liked_by?(current_user) %>

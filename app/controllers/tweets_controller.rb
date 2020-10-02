@@ -1,6 +1,7 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_action :set_page, only: [:index]
+  before_action :find_reference, only: [:new, :create]
 
   # GET /tweets
   # GET /tweets.json
@@ -28,6 +29,7 @@ class TweetsController < ApplicationController
   def create
     @tweet = Tweet.new(tweet_params)
     @tweet.user_id = current_user.id
+    @tweet.retweet_from_id = @reference.id unless @reference.nil?
 
     respond_to do |format|
       if @tweet.save
@@ -72,10 +74,14 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:user_id, :content, :retweets)
+      params.require(:tweet).permit(:user_id, :content, :retweet_from_id)
     end
 
     def set_page
       @page = params[:page].nil? ? 1 : params[:page].to_i
+    end
+
+    def find_reference
+      @reference = Tweet.find(params[:reference]) unless params[:reference].nil?
     end
 end

@@ -20,7 +20,7 @@
       <div class="w-100 col-2 border-right">
         <div class="d-flex flex-column">
           <%= fa_icon "twitter", class: "text-primary fa-4x" %>
-          <%= link_to fa_icon("home") +" Home", root_path, class: "text-dark h4 font-weight-bold" %>
+          <%= link_to fa_icon("home") +" Home", tweets_path, class: "text-dark h4 font-weight-bold" %>
           <% if user_signed_in? %>
             <%= link_to fa_icon("sign-out") + " Log out", destroy_user_session_path, class: "text-dark h4 font-weight-bold", method: "delete" %>
           <% else %>

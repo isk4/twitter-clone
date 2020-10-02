@@ -2,6 +2,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   validates :content, presence: true
   has_many :likes, dependent: :destroy
+  has_many :tweets
 
   def self.get_tweets(amount, page)
     self.order(id: :desc).offset(amount * (page - 1)).limit(amount)
@@ -24,5 +25,13 @@ class Tweet < ApplicationRecord
       return true if like.user == user
     end
     return false
+  end
+
+  def retweet_from
+    Tweet.find(self.retweet_from_id)
+  end
+
+  def retweet_count
+    Tweet.where(retweet_from_id: self.id).count
   end
 end

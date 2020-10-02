@@ -25,4 +25,12 @@
     </div>
 
   </div>
+
+  <% unless params[:reference].nil? %>
+    <div>
+      <%= render 'tweet', resource: @reference %>
+      <%= form.hidden_field :retweet_from_id, value: @reference.id %>
+    </div>
+  <% end %>
+  
 <% end %>
