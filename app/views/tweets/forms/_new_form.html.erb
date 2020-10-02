@@ -1,5 +1,5 @@
 <%= form_with(model: tweet, local: true) do |form| %>
-  <div class="d-flex">
+  <div class="d-flex border">
     <img src="<%= current_user.profile_pic_url %>" style="width: 50px; height: 50px;" class="rounded-circle ml-3 mt-3" alt="profile pic">
 
     <% if tweet.errors.any? %>

@@ -7,7 +7,7 @@
                     <h5 class="card-title font-weight-bold"><%= resource.user %></h5>
                     <span><%= link_to "#{time_ago_in_words(resource.created_at)} ago", resource, class: "text-muted ml-2" %></span>
                 </div>
-                <% if resource.get_user_id == current_user.id %>
+                <% if user_signed_in? && resource.get_user_id == current_user.id %>
                     <div>
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                         <div class="dropdown-menu">
@@ -25,7 +25,8 @@
 
             <div class="d-flex justify-content-around">
                 <div>
-                    <%= link_to fa_icon("retweet"),
+                    <%= 
+                        link_to fa_icon("retweet"),
                         new_tweet_path({ reference: resource }),
                         class: "#{resource.retweeted_by?(current_user) ? "text-success" : "text-muted"}" 
                     %>
