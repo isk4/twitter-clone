@@ -1,7 +1,7 @@
 class LikesController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_tweet, only: [:create, :destroy, :set_like]
   before_action :set_like, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /likes
   # GET /likes.json
