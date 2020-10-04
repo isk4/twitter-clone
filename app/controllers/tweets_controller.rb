@@ -7,9 +7,8 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @max_tweets = 50
     @tweet = Tweet.new
-    @tweets = Tweet.get_tweets(@max_tweets, @page)
+    @tweets = Tweet.tweets_for_me(current_user.friends, @page)
   end
 
   # GET /tweets/1

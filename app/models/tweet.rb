@@ -6,7 +6,7 @@ class Tweet < ApplicationRecord
   has_many :tweets, foreign_key: "retweet_from_id", dependent: :destroy
 
   # TO BE IMPLEMENTED
-  # scope :tweets_for_me, -> (friends_list) {  }
+  scope :tweets_for_me, -> (friends_list, page) { where(user_id: friends_list.map { |friend| friend.friend_id }).order(id: :desc).offset(50 * (page - 1)).limit(50) }
 
   def self.get_tweets(amount, page)
     self.order(id: :desc).offset(amount * (page - 1)).limit(amount)

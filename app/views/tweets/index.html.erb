@@ -14,7 +14,7 @@
 <br>
 
 <div class="d-flex flex-column text-center align-items-middle">
-  <%= link_to 'Show more tweets', tweets_path(page: @page + 1), class: "font-weight-bold h3" unless @tweets.length < @max_tweets %>
+  <%= link_to 'Show more tweets', tweets_path(page: @page + 1), class: "font-weight-bold h3" unless @tweets.length < 50 %>
   <%= link_to 'Previous page', tweets_path(page: @page - 1), class: "font-weight-bold" unless @page == 1 %>
 </div>
 
