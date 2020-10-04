@@ -29,7 +29,7 @@ class FriendsController < ApplicationController
 
     respond_to do |format|
       if @friend.save
-        format.html { redirect_to tweets_path, notice: 'Following successfully!' }
+        format.html { redirect_to tweets_path, notice: 'Following!' }
         format.json { render :show, status: :created, location: @friend }
       else
         format.html { redirect_to tweets_path, notice: "There was an error while trying to follow this user." }
@@ -57,7 +57,7 @@ class FriendsController < ApplicationController
   def destroy
     @friend.destroy
     respond_to do |format|
-      format.html { redirect_to tweets_path, notice: 'Friend was successfully destroyed.' }
+      format.html { redirect_to tweets_path, notice: 'Unfollowed.' }
       format.json { head :no_content }
     end
   end
