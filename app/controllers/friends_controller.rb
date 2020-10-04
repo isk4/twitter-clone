@@ -25,13 +25,14 @@ class FriendsController < ApplicationController
   # POST /friends.json
   def create
     @friend = Friend.new(friend_params)
+    @friend.user_id = current_user.id
 
     respond_to do |format|
       if @friend.save
-        format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
+        format.html { redirect_to tweets_path, notice: 'Following successfully!' }
         format.json { render :show, status: :created, location: @friend }
       else
-        format.html { render :new }
+        format.html { redirect_to tweets_path, notice: "There was an error while trying to follow this user." }
         format.json { render json: @friend.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +57,7 @@ class FriendsController < ApplicationController
   def destroy
     @friend.destroy
     respond_to do |format|
-      format.html { redirect_to friends_url, notice: 'Friend was successfully destroyed.' }
+      format.html { redirect_to tweets_path, notice: 'Friend was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +70,6 @@ class FriendsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def friend_params
-      params.fetch(:friend, {})
+      params.require(:friend).permit(:user_id, :friend_id)
     end
 end

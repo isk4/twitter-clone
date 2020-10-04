@@ -7,14 +7,25 @@
                     <h5 class="card-title font-weight-bold"><%= resource.user %></h5>
                     <span><%= link_to "#{time_ago_in_words(resource.created_at)} ago", resource, class: "text-muted ml-2" %></span>
                 </div>
-                <% if user_signed_in? && resource.get_user_id == current_user.id %>
-                    <div>
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu">
-                            <%= link_to fa_icon("pencil") + " Edit tweet", edit_tweet_path(resource), class: "dropdown-item" %>
-                            <%= link_to fa_icon("trash-o") + " Delete tweet", tweet_path(resource), class: "dropdown-item", data: { confirm: "Are you sure?" }, method: :delete %>
+                <% if user_signed_in? %>
+                    <% if resource.get_user_id == current_user.id %>
+                        <div>
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <%= link_to fa_icon("pencil") + " Edit tweet", edit_tweet_path(resource), class: "dropdown-item" %>
+                                <%= link_to fa_icon("trash-o") + " Delete tweet", tweet_path(resource), class: "dropdown-item", data: { confirm: "Are you sure?" }, method: :delete %>
+                            </div>
                         </div>
-                    </div>
+                    <% else %>
+                        <% unless current_user.follows?(resource.user) %>
+                            <%= form_with(model: @friend, url: friends_path(current_user.id)) do |f| %>
+                                <%= f.hidden_field :friend_id, value: resource.get_user_id %>
+                                <%= f.submit "Follow", class: "btn btn-outline-info rounded-pill" %>
+                            <% end %>
+                        <% else %>
+                            <%= link_to "Unfollow", friend_path(current_user.id, current_user.get_follow_id(resource.user)), class: "btn btn-outline-info rounded-pill", method: "delete" %>
+                        <% end %>
+                    <% end %>
                 <% end %>
             </div>
             <p class="card-text"><%= resource.content %></p>

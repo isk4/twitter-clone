@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::Base
     before_action :configure_permitted_parameters, if: :devise_controller?
+    before_action :new_friend, only: [:index, :show]
 
     protected
 
     def configure_permitted_parameters
         devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :profile_pic_url])
+    end
+
+    def new_friend
+        @friend = Friend.new
     end
 end

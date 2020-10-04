@@ -11,4 +11,12 @@ class User < ApplicationRecord
   def to_s
     self.username
   end
+
+  def follows?(user)
+    self.friends.where(friend_id: user.id).present?
+  end
+
+  def get_follow_id(user)
+    self.friends.where(friend_id: user.id).ids
+  end
 end
