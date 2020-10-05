@@ -12,7 +12,7 @@ class TweetsController < ApplicationController
     if params[:search].present?
       @tweets = Tweet.search_for(params[:search])
     else
-      @tweets = user_signed_in? ? Tweet.tweets_for_me(current_user.friends, @page) : Tweet.all
+      @tweets = user_signed_in? ? Tweet.tweets_for_me(current_user.friends, @page) : Tweet.all.order(id: :desc)
     end
   end
 

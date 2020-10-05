@@ -17,24 +17,24 @@
     <p id="notice"><%= notice %></p>
     <p id="alert"><%= alert %></p>
 
-      <div class="col-2 border-right px-4 vh-100 position-fixed">
+      <div class="col-2 border-right px-3 vh-100 position-fixed">
         <div class="d-flex flex-column">
-          <%= link_to fa_icon("twitter"), tweets_path, class: "text-primary fa-4x" %>
+          <%= link_to fa_icon("twitter"), tweets_path, class: "text-primary fa-4x ml-3" %>
           <div class="mt-2 d-flex flex-column">
             
             <%= link_to(tweets_path) do %>
-              <div class="d-flex align-items-center mt-4 text-body">
-                <div class="w-25"><%= fa_icon("home", class: "fa-3x") %></div>
-                <h4 class="ml-4 w-50 font-weight-bold d-none d-md-block">Home</h4>
+              <div class="d-flex align-items-center justify-content-center mt-4 text-body">
+                <div class="w-50 text-center"><%= fa_icon("home", class: "fa-3x") %></div>
+                <h4 class="w-50 font-weight-bold d-none d-lg-block">Home</h4>
               </div>
             <% end %>
             
             <% if user_signed_in? %>
 
               <%= link_to(destroy_user_session_path, method: "delete") do %>
-                <div class="d-flex align-items-center mt-4 text-body">
-                  <div class="w-25"><%= fa_icon("sign-out", class: "fa-3x") %></div>
-                  <h4 class="ml-4 w-50 font-weight-bold d-none d-md-block">Log out</h4>
+                <div class="d-flex align-items-center justify-content-center mt-4 text-body">
+                  <div class="w-50 text-center"><%= fa_icon("sign-out", class: "fa-3x") %></div>
+                  <h4 class="w-50 font-weight-bold d-none d-lg-block">Log out</h4>
                 </div>
               <% end %>
 
@@ -42,18 +42,18 @@
 
               <% unless current_page?(new_user_session_path) %>
                 <%= link_to(new_user_session_path) do %>
-                  <div class="d-flex align-items-center mt-4 text-body">
-                    <div class="w-25"><%= fa_icon("sign-in", class: "fa-3x") %></div>
-                    <h4 class="ml-4 w-50 font-weight-bold d-none d-md-block">Log in</h4>
+                  <div class="d-flex align-items-center justify-content-center mt-4 text-body">
+                    <div class="w-50 text-center"><%= fa_icon("sign-in", class: "fa-3x") %></div>
+                    <h4 class="w-50 font-weight-bold d-none d-lg-block">Log in</h4>
                   </div>
                 <% end %>
               <% end %>
 
               <% unless current_page?(new_user_registration_path) %>
                 <%= link_to(new_user_registration_path) do %>
-                  <div class="d-flex align-items-center mt-4 text-body">
-                    <div class="w-25"><%= fa_icon("user-plus", class: "fa-3x") %></div>
-                    <h4 class="ml-4 w-50 font-weight-bold d-none d-md-block">Sign up</h4>
+                  <div class="d-flex align-items-center justify-content-center mt-4 text-body">
+                    <div class="w-50 text-center"><%= fa_icon("user-plus", class: "fa-3x") %></div>
+                    <h4 class="w-50 font-weight-bold d-none d-lg-block">Sign up</h4>
                   </div>
                 <% end %>
               <% end %>
