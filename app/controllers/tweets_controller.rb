@@ -3,6 +3,7 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_action :set_page, only: [:index]
   before_action :find_reference, only: [:new, :create]
+  before_action :new_friend, only: [:index, :show]
 
   # GET /tweets
   # GET /tweets.json
@@ -85,5 +86,9 @@ class TweetsController < ApplicationController
 
     def find_reference
       @reference = Tweet.find(params[:reference]) unless params[:reference].nil?
+    end
+
+    def new_friend
+      @friend = Friend.new
     end
 end
