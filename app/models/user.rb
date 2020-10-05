@@ -19,4 +19,20 @@ class User < ApplicationRecord
   def get_follow_id(user)
     self.friends.where(friend_id: user.id).ids
   end
+
+  def friends_count
+    self.friends.count
+  end
+
+  def tweets_count
+    self.tweets.count
+  end
+  
+  def likes_given_count
+    self.likes.count
+  end
+
+  def retweet_count
+    self.tweets.where.not(retweet_from_id: nil).count
+  end
 end

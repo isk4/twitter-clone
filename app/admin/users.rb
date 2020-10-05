@@ -17,8 +17,12 @@ ActiveAdmin.register User do
 
   index do
     selectable_column
-    column :username
+    column "Username", :username
+    column "Following", :friends_count
+    column "Tweets made", :tweets_count
+    column "Likes given", :likes_given_count
+    column "Retweets made", :retweet_count
+    actions
   end
-    
   
 end
