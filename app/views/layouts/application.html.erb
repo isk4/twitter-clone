@@ -11,11 +11,11 @@
   </head>
 
   <body class="container-fluid">
-    <p id="notice"><%= notice %></p>
-    <p id="alert"><%= alert %></p>
 
 
     <div class="row">
+    <p id="notice"><%= notice %></p>
+    <p id="alert"><%= alert %></p>
 
       <div class="col-2 border-right pl-4 vh-100 position-fixed">
         <div class="d-flex flex-column">
@@ -32,9 +32,16 @@
         </div>
       </div>
 
-      <div class="col-10 offset-2">
+      <div class="d-flex flex-column col-10 offset-2 vh-100">
+        
+        <nav class="navbar navbar-light bg-light border">
+          <a class="navbar-brand font-weight-bold">Twitter</a>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          </form>
+        </nav>
 
-        <div>
+        <div class="overflow-auto">
           <%= yield %>
         </div>
       
