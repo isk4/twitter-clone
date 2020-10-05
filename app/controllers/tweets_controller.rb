@@ -9,8 +9,11 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweet = Tweet.new
-    @tweets = Tweet.all
-    #@tweets = user_signed_in? ? Tweet.tweets_for_me(current_user.friends, @page) : Tweet.all
+    if params[:search].present?
+      @tweets = Tweet.search_for(params[:search])
+    else
+      @tweets = user_signed_in? ? Tweet.tweets_for_me(current_user.friends, @page) : Tweet.all
+    end
   end
 
   # GET /tweets/1
