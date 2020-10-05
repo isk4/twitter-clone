@@ -36,6 +36,8 @@ gem 'font-awesome-rails'
 gem 'bootstrap', '~> 4.5.2'
 # jQuery
 gem 'jquery-rails'
+# ActiveAdmin
+gem 'activeadmin'
 ### ADDED GEMS ###
 
 # Use ActiveStorage variant
