@@ -1,30 +1,41 @@
 <% content_for :title, "Login on Twitter" %>
 
-<div class="text-center">
-  <h2>Log in</h2>
+<div class="text-center text-secondary w-50 mx-auto font-weight-bold">
+
+  <%= fa_icon "twitter", class: "text-primary fa-3x my-4" %>
+
+  <h2 class="h3 font-weight-bold text-dark">Log in to Twitter</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
+    <div class="text-left">
+      <div class="field">
+        <%= f.label :email, class: "p-2" %><br />
+        <div style="border-bottom: 3px solid gray;">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-100 border-0" %>
+        </div>
+      </div>
 
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+      <div class="field">
+        <%= f.label :password, class: "p-2" %><br />
+        <div style="border-bottom: 3px solid gray;">
+          <%= f.password_field :password, autocomplete: "current-password", class: "w-100 border-0" %>
+        </div>
+      </div>
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="field">
+      <div class="field p-3">
         <%= f.check_box :remember_me %>
         <%= f.label :remember_me %>
       </div>
     <% end %>
 
     <div class="actions">
-      <%= f.submit "Log in" %>
+      <%= f.submit "Log in", class: "btn btn-primary rounded-pill font-weight-bold w-100 py-2" %>
     </div>
   <% end %>
-
-  <%= render "users/shared/links" %>
+  
+  <div class="m-5">
+    <%= render "users/shared/links" %>
+  </div>
 </div>

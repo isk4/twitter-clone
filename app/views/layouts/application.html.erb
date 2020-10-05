@@ -26,7 +26,7 @@
               <%= link_to fa_icon("sign-out") + " Log out", destroy_user_session_path, class: "text-dark h4 font-weight-bold mt-3", method: "delete" %>
             <% else %>
               <%= link_to fa_icon("sign-in") + " Log in", new_user_session_path, class: "text-dark h4 font-weight-bold mt-3" unless current_page?(new_user_session_path) %>
-              <%= link_to fa_icon("user-plus") + " Register", new_user_registration_path, class: "text-dark h4 font-weight-bold mt-3" unless current_page?(new_user_registration_path) %>
+              <%= link_to fa_icon("user-plus") + " Sign up", new_user_registration_path, class: "text-dark h4 font-weight-bold mt-3" unless current_page?(new_user_registration_path) %>
             <% end %>
           </div>
         </div>
