@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Twitter</title>
+    <title><%= yield(:title) %> / Twitter</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= favicon_link_tag %>
@@ -32,24 +32,10 @@
         </div>
       </div>
 
-      <div class="d-flex flex-column col-10 offset-2 vh-100 p-0">
-        
-        <nav class="navbar navbar-light bg-light border">
-          <a class="navbar-brand font-weight-bold">Twitter</a>
-          <%= form_tag(tweets_path, method: "get") do %>
-            <%= fa_icon("search") %>
-            <%= text_field_tag :search, nil, placeholder: "Search Twitter", class: "from-control mr-sm-2 rounded-pill border px-3 py-1" %>
-          <% end %>
-        </nav>
-
-        <div class="overflow-auto">
-          <%= yield %>
-        </div>
-      
+      <div class="col-10 offset-2 vh-100 p-0">
+        <%= yield %>
       </div>
 
-    
     </div>
-
   </body>
 </html>
