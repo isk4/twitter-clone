@@ -1,41 +1,51 @@
 <% content_for :title, "Sign up for Twitter" %>
 
-<div class="text-center">
-  <h2>Sign up</h2>
+<div class="text-left w-50 mx-auto my-5">
+  <h2 class="font-weight-bold mb-4">Create your account</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "users/shared/error_messages", resource: resource %>
 
-    <div class="field">
+    <div class="field mb-2">
       <%= f.label :username %><br />
-      <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+      <div style="border-bottom: 2px solid gray;">
+        <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "w-100 border-0" %>
+      </div>
     </div>
 
-    <div class="field">
+    <div class="field mb-2">
       <%= f.label :profile_pic_url %><br />
-      <%= f.text_field :profile_pic_url, autocomplete: "profiel_pic_url" %>
+      <div style="border-bottom: 2px solid gray;">
+        <%= f.text_field :profile_pic_url, autocomplete: "profiel_pic_url", class: "w-100 border-0" %>
+      </div>
     </div>
 
-    <div class="field">
+    <div class="field mb-2">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autocomplete: "email" %>
+      <div style="border-bottom: 2px solid gray;">
+        <%= f.email_field :email, autocomplete: "email", class: "w-100 border-0" %>
+      </div>
     </div>
 
-    <div class="field">
+    <div class="field mb-2">
       <%= f.label :password %>
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+      <div style="border-bottom: 2px solid gray;">
+        <%= f.password_field :password, autocomplete: "new-password", class: "w-100 border-0" %>
+      </div>
     </div>
 
-    <div class="field">
+    <div class="field mb-2">
       <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <div style="border-bottom: 2px solid gray;">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-100 border-0" %>
+      </div>
     </div>
 
-    <div class="actions">
-      <%= f.submit "Sign up" %>
+    <div class="actions text-center mt-5">
+      <%= f.submit "Sign up", class: "btn btn-primary font-weight-bold rounded-pill mt-3 w-100 py-3" %>
     </div>
   <% end %>
 
