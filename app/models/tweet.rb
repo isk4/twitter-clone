@@ -1,14 +1,14 @@
 class Tweet < ApplicationRecord
   belongs_to :user
-  validates  :content, presence:    true
-  has_many   :likes,   dependent:   :destroy
-  belongs_to :tweets,  optional:    true
-  has_many   :tweets,  foreign_key: "retweet_from_id", dependent: :destroy
+  validates  :content , presence:    true
+  has_many   :likes   , dependent:   :destroy
+  belongs_to :tweets  , optional:    true
+  has_many   :tweets  , foreign_key: "retweet_from_id", dependent: :destroy
   
-  scope :desc,          -> { order(id: :desc) }
-  scope :tweets_for_me, -> (friends_list) { where(user_id: friends_list.map { |friend| friend.friend_id }) }
-  scope :page,          -> (page) { offset(50 * (page - 1)).limit(50) }
-  scope :search_for,    -> (search) { where("lower(content) LIKE ?", "%#{search}%".downcase) }
+  scope :desc          , -> { order(id: :desc) }
+  scope :tweets_for_me , -> (friends_list) { where(user_id: friends_list.map { |friend| friend.friend_id }) }
+  scope :page          , -> (page) { offset(50 * (page - 1)).limit(50) }
+  scope :search_for    , -> (search) { where("lower(content) LIKE ?", "%#{search}%".downcase) }
 
   def split_content
     self.content.split(" ")

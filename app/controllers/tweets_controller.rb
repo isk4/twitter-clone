@@ -1,9 +1,9 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_tweet,          only: [:show, :edit, :update, :destroy]
-  before_action :set_page,           only: [:index]
-  before_action :find_reference,     only: [:new, :create]
-  before_action :new_friend,         only: [:index, :show]
+  before_action :set_tweet         , only: [:show, :edit, :update, :destroy]
+  before_action :set_page          , only: [:index]
+  before_action :find_reference    , only: [:new, :create]
+  before_action :new_friend        , only: [:index, :show]
 
   # GET /tweets
   # GET /tweets.json
