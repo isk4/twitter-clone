@@ -4,10 +4,12 @@
 
   <nav class="navbar navbar-light bg-light border">
     <a class="navbar-brand font-weight-bold">Twitter</a>
+
     <%= form_tag(tweets_path, method: "get") do %>
       <%= fa_icon("search") %>
       <%= text_field_tag :search, nil, placeholder: "Search Twitter", class: "from-control mr-sm-2 rounded-pill border px-3 py-1" %>
     <% end %>
+    
   </nav>
 
   <div class="overflow-auto">
