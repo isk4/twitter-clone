@@ -11,8 +11,14 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new
     if params[:search].present?
       @tweets = Tweet.desc.search_for(params[:search])
+    elsif user_signed_in?
+      unless current_user.friends.empty?
+        @tweets = Tweet.desc.tweets_for_me(current_user.friends).page(@page)
+      else
+        @tweets = current_user.tweets.desc
+      end
     else
-      @tweets = user_signed_in? ? Tweet.desc.tweets_for_me(current_user.friends).page(@page) : Tweet.desc
+      @tweets = Tweet.desc
     end
   end
 
