@@ -94,11 +94,7 @@ class TweetsController < ApplicationController
   end
 
   def api_create
-    @user = User.find_by_email(params[:email])
-    if @user && @user.valid_password?(params[:password])
-      Tweet.create(user_id: @user.id, content: params[:content])
-    end
-    render json: "hola"
+    Tweet.create(user_id: current_user.id, content: params[:content])
   end
 
   private

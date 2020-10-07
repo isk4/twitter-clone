@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'api/news', to: 'tweets#api_news'
   get 'api/:fecha1/:fecha2', to: 'tweets#api_dates'
-  post 'api/create_tweet/:email/:password/:content', to: 'tweets#api_create', constraints: { :email => /[^\/]+/ }
+  post 'api/create_tweet/:content', to: 'tweets#api_create'
 
   root to: redirect("tweets")
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
