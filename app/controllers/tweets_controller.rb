@@ -1,9 +1,11 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :api_news, :api_dates]
+  before_action :authenticate_user!, except: [:index, :api_news, :api_dates, :api_create]
   before_action :set_tweet,          only: [:show, :edit, :update, :destroy]
   before_action :set_page,           only: [:index]
   before_action :find_reference,     only: [:new, :create]
   before_action :new_friend,         only: [:index, :show]
+  
+  skip_before_action :verify_authenticity_token, only: :api_create
 
   # GET /tweets
   # GET /tweets.json
@@ -89,6 +91,14 @@ class TweetsController < ApplicationController
     date2 = Date.parse(params[:fecha2])
 
     @tweets = Tweet.between_dates(date1, date2).desc
+  end
+
+  def api_create
+    @user = User.find_by_email(params[:email])
+    if @user && @user.valid_password?(params[:password])
+      Tweet.create(user_id: @user.id, content: params[:content])
+    end
+    render json: "hola"
   end
 
   private
