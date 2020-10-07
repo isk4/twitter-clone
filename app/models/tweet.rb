@@ -5,7 +5,7 @@ class Tweet < ApplicationRecord
   belongs_to :tweets,  optional:    true
   has_many   :tweets,  foreign_key: "retweet_from_id", dependent: :destroy
   
-  scope :desc,          -> { order(created_at: :desc) }
+  scope :desc,          -> { order(id: :desc) }
   scope :tweets_for_me, -> (friends_list) { where(user_id: (friends_list.map { |friend| friend.friend_id } << friends_list[0].user_id)) }
   scope :page,          -> (page) { offset(50 * (page - 1)).limit(50) }
   scope :search_for,    -> (search) { where("lower(content) LIKE ?", "%#{search}%".downcase) }
