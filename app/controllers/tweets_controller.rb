@@ -44,16 +44,16 @@ class TweetsController < ApplicationController
     @tweet.retweet_from_id = @reference.id unless @reference.nil?
 
     if @tweet.save
-      redirect_to root_path, notice: 'Tweet was successfully created.'
+      redirect_to root_path, notice: 'Your tweet was successfully created.'
     else
-      redirect_to tweets_url, alert: 'Tweet must have content.'
+      redirect_to tweets_url, notice: 'Your tweet must have content.'
     end
   end
 
   # PATCH/PUT /tweets/1
   def update
     if @tweet.update(tweet_params)
-      redirect_to @tweet, notice: 'Tweet was successfully updated.'
+      redirect_to @tweet, notice: 'Your tweet was successfully updated.'
     else
       render :edit
     end
@@ -62,7 +62,7 @@ class TweetsController < ApplicationController
   # DELETE /tweets/1
   def destroy
     @tweet.destroy
-    redirect_to tweets_url, notice: 'Tweet was successfully destroyed.'
+    redirect_to tweets_url, notice: 'Your tweet was successfully destroyed.'
   end
 
   # API methods
