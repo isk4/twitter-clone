@@ -1,14 +1,13 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :api_news, :api_dates, :api_create]
+  before_action :authenticate_user!, except: [:index, :api_news, :api_dates]
   before_action :set_tweet,          only: [:show, :edit, :update, :destroy]
   before_action :set_page,           only: [:index]
   before_action :find_reference,     only: [:new, :create]
   before_action :new_friend,         only: [:index, :show]
   
-  skip_before_action :verify_authenticity_token, only: :api_create
+  protect_from_forgery with: :null_session
 
   # GET /tweets
-  # GET /tweets.json
   def index
     @tweet = Tweet.new
     if params[:search].present?
@@ -25,7 +24,6 @@ class TweetsController < ApplicationController
   end
 
   # GET /tweets/1
-  # GET /tweets/1.json
   def show
   end
 
@@ -40,61 +38,69 @@ class TweetsController < ApplicationController
   end
 
   # POST /tweets
-  # POST /tweets.json
   def create
     @tweet = Tweet.new(tweet_params)
     @tweet.user_id = current_user.id
     @tweet.retweet_from_id = @reference.id unless @reference.nil?
 
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to root_path, notice: 'Tweet was successfully created.' }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.html { redirect_to tweets_url, alert: 'Tweet must have content.' }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    if @tweet.save
+      redirect_to root_path, notice: 'Tweet was successfully created.'
+    else
+      redirect_to tweets_url, alert: 'Tweet must have content.'
     end
   end
 
   # PATCH/PUT /tweets/1
-  # PATCH/PUT /tweets/1.json
   def update
-    respond_to do |format|
-      if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tweet }
-      else
-        format.html { render :edit }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    if @tweet.update(tweet_params)
+      redirect_to @tweet, notice: 'Tweet was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # DELETE /tweets/1
-  # DELETE /tweets/1.json
   def destroy
     @tweet.destroy
-    respond_to do |format|
-      format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to tweets_url, notice: 'Tweet was successfully destroyed.'
   end
 
   # API methods
+  # GET /api/news
   def api_news
     @tweets = Tweet.desc.limit(50)
+
+    respond_to do |format|
+      format.html { redirect_to tweets_url, notice: "Oops! You shouldn't be doing that." }
+      format.json { render :api_news }
+    end
   end
 
+  # GET /api/:fecha1/:fecha2
   def api_dates
-    date1 = Date.parse(params[:fecha1])
-    date2 = Date.parse(params[:fecha2])
-
-    @tweets = Tweet.between_dates(date1, date2).desc
+    respond_to do |format|
+      format.html { redirect_to tweets_url, notice: "Oops! You shouldn't be doing that." }
+      begin
+        date1 = Date.parse(params[:fecha1])
+        date2 = Date.parse(params[:fecha2])
+        @tweets = Tweet.between_dates(date1, date2).desc
+        format.json { render :api_dates }
+      rescue ArgumentError
+        format.json { render json: "Invalid dates." }
+      end
+    end
   end
 
+  # GET /api/create_tweet/:content
   def api_create
-    Tweet.create(user_id: current_user.id, content: params[:content])
+    @tweet = Tweet.new(user_id: current_user.id, content: params[:content])
+
+    respond_to do |format|
+      format.html { redirect_to tweets_url, notice: "Oops! You shouldn't be doing that." }
+      if @tweet.save
+        format.json { render :show, status: :created, location: @tweet }
+      end
+    end
   end
 
   private
