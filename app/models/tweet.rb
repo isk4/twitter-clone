@@ -9,6 +9,7 @@ class Tweet < ApplicationRecord
   scope :tweets_for_me, -> (friends_list) { where(user_id: (friends_list.map { |friend| friend.friend_id } << friends_list[0].user_id)) }
   scope :page,          -> (page) { offset(50 * (page - 1)).limit(50) }
   scope :search_for,    -> (search) { where("lower(content) LIKE ?", "%#{search}%".downcase) }
+  scope :between_dates, -> (date1, date2) { where(created_at: date1.beginning_of_day..date2.end_of_day) }
 
   def split_content
     self.content.split(" ")

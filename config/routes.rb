@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :friends, only: [:create, :destroy], path: 'users/:user_id/friends'
 
   get 'api/news', to: 'tweets#api_news'
+  get 'api/:fecha1/:fecha2', to: 'tweets#api_dates'
 
   root to: redirect("tweets")
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

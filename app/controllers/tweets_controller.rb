@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :api_news]
+  before_action :authenticate_user!, except: [:index, :api_news, :api_dates]
   before_action :set_tweet,          only: [:show, :edit, :update, :destroy]
   before_action :set_page,           only: [:index]
   before_action :find_reference,     only: [:new, :create]
@@ -82,6 +82,13 @@ class TweetsController < ApplicationController
   # API methods
   def api_news
     @tweets = Tweet.desc.limit(50)
+  end
+
+  def api_dates
+    date1 = Date.parse(params[:fecha1])
+    date2 = Date.parse(params[:fecha2])
+
+    @tweets = Tweet.between_dates(date1, date2).desc
   end
 
   private

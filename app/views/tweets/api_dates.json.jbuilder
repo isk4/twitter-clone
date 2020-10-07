@@ -5,4 +5,5 @@ json.array! @tweets do |tweet|
     json.like_count tweet.like_count
     json.retweets_count tweet.retweet_count
     json.retweeted_from tweet.retweet_from_id
+    json.created_at tweet.created_at.to_s
 end
