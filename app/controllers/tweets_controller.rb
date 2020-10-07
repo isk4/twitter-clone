@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :api_news]
   before_action :set_tweet,          only: [:show, :edit, :update, :destroy]
   before_action :set_page,           only: [:index]
   before_action :find_reference,     only: [:new, :create]
@@ -77,6 +77,11 @@ class TweetsController < ApplicationController
       format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # API methods
+  def api_news
+    @tweets = Tweet.desc.limit(50)
   end
 
   private
