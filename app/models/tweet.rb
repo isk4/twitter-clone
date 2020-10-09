@@ -5,7 +5,7 @@ class Tweet < ApplicationRecord
   belongs_to :retweet_from, class_name:  "Tweet",           optional:  true, counter_cache: true
   has_many   :tweets,       foreign_key: "retweet_from_id", dependent: :destroy
   
-  scope :include_all,   -> { includes(:user, :tweets, retweet_from: [:user, :likes, :tweets]) }
+  scope :include_all,   -> { includes(:tweets, user: :friends, retweet_from: [:user, :likes, :tweets]) }
   scope :desc,          -> { order(id: :desc) }
   scope :tweets_for_me, -> (friends_list) { where(user_id: (friends_list.map { |friend| friend.friend_id } << friends_list[0].user_id)) }
   scope :page,          -> (page) { offset(50 * (page - 1)).limit(50) }
