@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_014044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "retweet_from_id"
-    t.integer "likes_count"
+    t.integer "likes_count", default: 0
     t.index ["retweet_from_id"], name: "index_tweets_on_retweet_from_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
