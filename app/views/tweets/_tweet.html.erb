@@ -76,7 +76,7 @@
           <% else %>
             <%= link_to fa_icon("heart-o"), tweet_likes_path(resource), method: "post", class: "text-muted" %>
           <% end %>
-          <span class="text-muted ml-3"><%= resource.like_count %></span>
+          <span class="text-muted ml-3"><%= resource.likes_count %></span>
         </div>
 
       </div>

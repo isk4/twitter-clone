@@ -20,10 +20,6 @@ class Tweet < ApplicationRecord
     self.split_content.select { |word| word.match(/\A#[a-zA-Z0-9]+\z/) }
   end
   
-  def like_count
-    self.likes.count
-  end
-  
   def get_user_id
     self.user.id
   end
