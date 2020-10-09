@@ -11,15 +11,15 @@ class TweetsController < ApplicationController
   def index
     @tweet = Tweet.new
     if params[:search].present?
-      @tweets = Tweet.search_for(params[:search]).desc.page(@page)
+      @tweets = Tweet.search_for(params[:search]).include_all.desc.page(@page)
     elsif user_signed_in?
       unless current_user.friends.empty?
-        @tweets = Tweet.tweets_for_me(current_user.friends).desc.page(@page)
+        @tweets = Tweet.tweets_for_me(current_user.friends).include_all.desc.page(@page)
       else
-        @tweets = current_user.tweets.desc.page(@page)
+        @tweets = current_user.tweets.include_all.desc.page(@page)
       end
     else
-      @tweets = Tweet.desc.page(@page)
+      @tweets = Tweet.include_all.desc.page(@page)
     end
   end
 
