@@ -67,7 +67,7 @@
           <%= link_to fa_icon("retweet"),
               new_tweet_path({ reference: resource }),
               class: "#{resource.retweeted_by?(current_user) ? "text-success" : "text-muted"}" %>
-          <span class="text-muted ml-3"><%= resource.retweet_count %></span>
+          <span class="text-muted ml-3"><%= resource.tweets_count %></span>
         </div>
 
         <div>

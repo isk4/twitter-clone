@@ -2,7 +2,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   validates  :content,      presence:    true
   has_many   :likes,        dependent:   :destroy
-  belongs_to :retweet_from, class_name:  "Tweet",           optional:  true
+  belongs_to :retweet_from, class_name:  "Tweet",           optional:  true, counter_cache: true
   has_many   :tweets,       foreign_key: "retweet_from_id", dependent: :destroy
   
   scope :include_all,   -> { includes(:user, :tweets, retweet_from: [:user, :likes, :tweets]) }
@@ -33,10 +33,6 @@ class Tweet < ApplicationRecord
       return true if like.user == user
     end
     return false
-  end
-
-  def retweet_count
-    self.tweets.count
   end
 
   def retweeted_by?(user)
